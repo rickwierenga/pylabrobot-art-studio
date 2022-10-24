@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PyLabRobot Studio</title>
+    <link rel="stylesheet" href="/static/main.css" />
+    <link rel="stylesheet" href="/static/studio.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>PyLabRobot Art Studio</h1>
+      <div class="buttons">
+        <button class="button-secondary" onclick="viewSubmissions()">
+          View My Submissions
+        </button>
+        <button class="button-secondary" onclick="play(event);">Play</button>
+        <button class="button-primary" onclick="submit(event);">Submit</button>
+      </div>
+    </header>
+    <main>
+      <div class="colors">
+        <div class="color" id="red" onclick="selectColor(event)"></div>
+        <div class="color" id="orange" onclick="selectColor(event)"></div>
+        <div class="color" id="yellow" onclick="selectColor(event)"></div>
+        <div class="color" id="green" onclick="selectColor(event)"></div>
+        <div class="color" id="blue" onclick="selectColor(event)"></div>
+        <div class="color" id="purple" onclick="selectColor(event)"></div>
+        <div class="color" id="white" onclick="selectColor(event)"></div>
+        <div class="color" id="black" onclick="selectColor(event)"></div>
+      </div>
+
+      <div id="plate-container">
+        <div id="plate"></div>
+        <button onclick="rotate90()">
+          <img
+            src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-6/icon-rotate-left-90.png"
+            alt=""
+            width="40"
+            height="40"
+          />
+        </button>
+      </div>
+
+      <div id="submissions-popup" style="display: none">
+        <div id="submissions">
+          <div id="popup-header">
+            <h2>My Submissions</h2>
+            <button id="submissions-close-btn" onclick="closeSubmissions()">
+              &times;
+            </button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>minidraw</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="submissions-table">
+              <tr>
+                <th><div id="minidraw"></div></th>
+                <td>Queued</td>
+                <td>2021-05-05 12:00:00</td>
+                <td>
+                  <button class="button-secondary">Load in studio</button>
+                  <button class="button-secondary">Withdraw</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="signup-popup">
+        <h1 id="welcome-text"></h1>
+        <p id="welcome-subtext"></p>
+        <div id="welcome-form" class="form" style="display: none">
+          <input type="email" id="email" />
+          <button onclick="setUser(event)">Get Started</button>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="/static/main.js"></script>
+  <script src="/static/studio.js"></script>
+</html>

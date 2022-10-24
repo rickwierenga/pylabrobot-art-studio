@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  /* font-family: sans-serif; */
+  font-family: monospace;
+}
+
+.minidraw {
+  width: calc(12 * 3px);
+  height: calc(8 * 3px);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  margin: auto;
+}
+.miniwell {
+  width: 3px;
+  height: 3px;
+}

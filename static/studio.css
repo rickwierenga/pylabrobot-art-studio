@@ -1,0 +1,274 @@
+header {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+  font-size: 1.4em;
+}
+
+header button {
+  margin: 0 20px;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+header .button-primary {
+  background-color: #f1f1f1;
+}
+header .button-secondary {
+  background-color: white;
+  border: 2px solid #f1f1f1;
+}
+
+header .button-primary:hover {
+  background-color: #e1e1e1;
+}
+header .button-secondary:hover {
+  border: 2px solid #e1e1e1;
+}
+
+main {
+  background-color: #eee;
+
+  height: calc(100vh - 50px);
+  width: 100vw;
+
+  display: grid;
+  grid-template-columns: 50px auto;
+}
+
+.colors {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(6, 1fr);
+
+  padding: 20px;
+
+  max-height: 200px;
+}
+
+.color {
+  height: 30px;
+  width: 30px;
+  margin: 10px;
+  border-radius: 5px;
+  justify-self: center;
+}
+
+#red {
+  background-color: red;
+  border: 2px solid red;
+}
+#red.selected {
+  border: 4px solid rgb(192, 1, 1);
+}
+
+#orange {
+  background-color: orange;
+  border: 2px solid orange;
+}
+#orange.selected {
+  border: 4px solid rgb(192, 96, 1);
+}
+
+#yellow {
+  background-color: yellow;
+  border: 2px solid yellow;
+}
+#yellow.selected {
+  border: 4px solid rgb(192, 192, 1);
+}
+
+#green {
+  background-color: green;
+  border: 2px solid green;
+}
+#green.selected {
+  border: 4px solid rgb(1, 192, 1);
+}
+
+#blue {
+  background-color: blue;
+  border: 2px solid blue;
+}
+#blue.selected {
+  border: 4px solid rgb(1, 1, 192);
+}
+
+#purple {
+  background-color: purple;
+  border: 2px solid purple;
+}
+#purple.selected {
+  border: 4px solid rgb(96, 1, 192);
+}
+
+#white {
+  background-color: white;
+  border: 2px solid white;
+}
+#white.selected {
+  border: 4px solid rgb(192, 192, 192);
+}
+
+#black {
+  background-color: black;
+  border: 2px solid black;
+}
+#black.selected {
+  border: 4px solid rgb(64, 64, 64);
+}
+
+#plate-container {
+  margin: auto auto;
+
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  grid-column-gap: 20px;
+}
+#plate-container button {
+  max-height: 40px;
+  align-self: flex-end;
+}
+
+#plate {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+
+  width: 800px;
+  height: 500px;
+
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+
+  transition: transform 0.2s ease-in-out;
+}
+
+.well {
+  border: 3px solid #000;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+#submissions-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#submissions {
+  background-color: white;
+  border-radius: 5px;
+  width: 600px;
+  height: 400px;
+  padding: 20px;
+}
+
+#submissions h2 {
+  text-align: center;
+}
+
+#submissions table {
+  width: 100%;
+}
+
+#submissions td {
+  text-align: center;
+}
+
+#popup-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+#submissions-close-btn {
+  cursor: pointer;
+  background-color: #ccc;
+  width: 28px;
+  height: 28px;
+  line-height: 25px;
+
+  font-size: 1.4em;
+
+  padding-bottom: 3px;
+
+  border-radius: 100%;
+  border: none;
+
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+
+  -webkit-transition: background-color 100ms linear;
+  -ms-transition: background-color 100ms linear;
+  transition: background-color 100ms linear;
+}
+
+#submissions-close-btn:hover {
+  background-color: #aaa;
+}
+
+#signup-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#signup-popup h1 {
+  font-size: 70px;
+  margin-bottom: 20px;
+}
+#signup-popup p {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+#signup-popup input {
+  font-size: 30px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+#signup-popup button {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
