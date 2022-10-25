@@ -282,8 +282,6 @@ function main() {
   makeWells();
   initializeState();
   selectColor({ target: document.getElementById("red") });
-
-  viewSubmissions();
 }
 
 document.addEventListener("DOMContentLoaded", main);
