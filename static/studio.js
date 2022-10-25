@@ -241,13 +241,7 @@ async function play(event) {
     "black",
   ];
 
-  // Set current state to all white.
-  for (let i = 0; i < 12; i++) {
-    for (let j = 0; j < 8; j++) {
-      state[i][j] = "white";
-    }
-  }
-  updateUI();
+  clearCanvas();
 
   await sleep(500);
 
@@ -272,6 +266,16 @@ function rotate90() {
     parseInt(rotation.replace("rotate(", "").replace("deg)", "")) || 0;
   plate.style.transform = `rotate(${rotationInt - 90}deg)`;
   console.log(`rotate(${rotationInt - 90}deg)`);
+}
+
+function clearCanvas() {
+  // Set current state to all white.
+  for (let i = 0; i < 12; i++) {
+    for (let j = 0; j < 8; j++) {
+      state[i][j] = "white";
+    }
+  }
+  updateUI();
 }
 
 function main() {

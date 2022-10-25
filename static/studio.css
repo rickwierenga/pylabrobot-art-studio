@@ -272,3 +272,10 @@ main {
   font-size: 30px;
   margin-bottom: 20px;
 }
+
+.canvas-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+}
