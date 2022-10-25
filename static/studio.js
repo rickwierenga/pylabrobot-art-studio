@@ -158,7 +158,6 @@ function viewSubmissions() {
           <tr>
             <td><div class="minidraw" id="minidraw-${submission.id}"></div></td>
             <td>${submission.status}</td>
-            <td>2021-05-05 12:00:00</td>
             <td>
               <button class="button-secondary" onclick="loadInStudio(${submission.id})">Load in studio</button>
               <button class="button-secondary" onclick="withdraw(${submission.id})">Withdraw</button>
