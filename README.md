@@ -1,5 +1,7 @@
 # PyLabRobot Art Studio
 
+**See [artstudio.pylabrobot.org](https://artstudio.pylabrobot.org).**
+
 Art Studio for [PyLabRobot](https://github.com/pylabrobot/pylabrobot): getting creative with 96 well plates, waterpaint, and liquid handling robots.
 
 Art studio:
@@ -8,10 +10,20 @@ Art studio:
 Master dashboard:
 ![Screenshot](./.github/dashboard.png)
 
+## Gallery
+
+![Image](./.github/1.JPG)
+![Image](./.github/2.JPG)
+![Image](./.github/3.JPG)
+![Image](./.github/4.JPG)
+![Image](./.github/5.JPG)
+![Image](./.github/6.JPG)
+
+## Developers
+
 **NOTE: This is a demo project**:
 
 - It uses long polling.
-- It does not do authentication.
 - Artworks/pieces/submissions are passed around inefficiently.
 
 ```bash
