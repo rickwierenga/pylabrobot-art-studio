@@ -10,6 +10,11 @@ Art studio:
 Master dashboard:
 ![Screenshot](./.github/dashboard.png)
 
+## Instructions
+
+![Poster](./.github/plras.jpg)
+![Instructions](./.github/plrashelp.jpg)
+
 ## Gallery
 
 ![Image](./.github/1.JPG)
