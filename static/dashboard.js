@@ -1,5 +1,6 @@
 //const BASE_URL = "http://0.0.0.0:5003";
 const BASE_URL = "https://artstudio.pylabrobot.org";
+var TOKEN;
 var interval;
 var pieces = [];
 
@@ -53,7 +54,7 @@ function buildDashboard(data) {
 }
 
 function longPoll() {
-  fetch(`${BASE_URL}/pieces?n=50`, {
+  fetch(`${BASE_URL}/pieces?n=50&token=${TOKEN}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -85,7 +86,7 @@ function getCurrentTask() {
 }
 
 function requeue(task_id) {
-  fetch(`${BASE_URL}/pieces/status`, {
+  fetch(`${BASE_URL}/pieces/status?token=${TOKEN}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -128,10 +129,18 @@ function remove(task_id) {
 }
 
 function initialize() {
-  interval = setInterval(() => {
-    longPoll();
-  }, 1000);
-  longPoll();
+  fetch(`/token`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      TOKEN = data.token;
+      longPoll();
+      interval = setInterval(longPoll, 1000);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", initialize);

@@ -1,12 +1,13 @@
 # artstudio.pylabrobot.org
 
 import json
+import os
 
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder=".", static_folder="static")
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://@localhost:5432/mm"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///mm"
 db = SQLAlchemy(app)
 
 @app.after_request
@@ -55,6 +56,10 @@ def submit():
 
 @app.route("/pieces", methods=["GET"])
 def get_latest():
+  token = request.args.get("token")
+  if token is None or token != os.environ.get("TOKEN"):
+    return jsonify({"success": False, "error": "invalid token"})
+
   n = request.args.get("n")
   if n is None:
     n = 1
@@ -75,6 +80,10 @@ def get_my_pieces():
 
 @app.route("/pieces/<int:id>", methods=["GET"])
 def get_piece(id):
+  token = request.args.get("token")
+  if token is None or token != os.environ.get("TOKEN"):
+    return jsonify({"success": False, "error": "invalid token"})
+
   p = Piece.query.get(id)
   if p is None:
     return jsonify({"success": False})
@@ -83,6 +92,10 @@ def get_piece(id):
 
 @app.route("/pieces/status", methods=["PUT"])
 def update_status():
+  token = request.args.get("token")
+  if token is None or token != os.environ.get("TOKEN"):
+    return jsonify({"success": False, "error": "invalid token"})
+
   data = request.get_json()
   p = Piece.query.get(data["id"])
   if p is None:
@@ -95,7 +108,20 @@ def update_status():
 
 @app.route("/pieces/<int:id>", methods=["DELETE"])
 def delete_piece(id):
+  token = request.args.get("token")
+  if token is None:
+    email = request.args.get("email")
+    if email is None:
+      return jsonify({"success": False, "error": "invalid token"})
+  elif token != os.environ.get("TOKEN"):
+    return jsonify({"success": False, "error": "invalid token"})
+
   p = Piece.query.get(id)
+  if p is None:
+    return jsonify({"success": False}) # leak ids, but oh well
+  if not (token == os.environ.get("TOKEN") or p.author == email):
+    return jsonify({"success": False, "error": "invalid token"})
+
   db.session.delete(p)
   try:
     db.session.commit()

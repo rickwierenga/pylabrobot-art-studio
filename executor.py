@@ -1,6 +1,7 @@
 # runs on device
 
 import json
+import os
 import threading
 
 from flask import Flask, jsonify, render_template, request
@@ -11,25 +12,21 @@ MAX_VOLUME = 20 #300
 DROP_VOLUME = 2
 ALL_COLORS = ["red", "orange", "yellow", "green", "blue", "purple"] #, "black"] # don't print white
 
+TOKEN = os.environ.get("TOKEN")
+
 
 current_task = None
 
 BASE_URL = "https://artstudio.pylabrobot.org"
 
 def mark_task(task_id, status):
-  requests.put(f"{BASE_URL}/pieces/status", json={"status": status, "id": task_id})
+  requests.put(f"{BASE_URL}/pieces/status?token={TOKEN}", json={"status": status, "id": task_id})
 
 ##### liquid handling #####
 
 from pylabrobot.liquid_handling import LiquidHandler
 from pylabrobot.liquid_handling.backends.opentrons_backend import OpentronsBackend
 from pylabrobot.liquid_handling.resources.opentrons import OTDeck
-
-import ot_api
-#ot_api.set_host("0.0.0.0")
-#ot_api.set_port(5001)
-ot_api.set_run("5001")
-#ot_api.requestor.post("/robot/home", data={"target": "robot"})
 
 ot = OpentronsBackend(host="0.0.0.0", port=5001) #10.31.56.221
 lh = LiquidHandler(backend=ot, deck=OTDeck())
@@ -38,15 +35,12 @@ lh.setup()
 
 from pylabrobot.liquid_handling.resources.opentrons import (
     opentrons_96_filtertiprack_20ul,
-    opentrons_96_tiprack_300ul
 )
 from pylabrobot.liquid_handling.resources.corning_costar import (
     Cos_96_EZWash
 )
 from pylabrobot.liquid_handling.resources.opentrons import corning_6_wellplate_16point8ml_flat
 from pylabrobot.liquid_handling.resources import Plate, create_equally_spaced, Well
-
-#tips = opentrons_96_filtertiprack_20ul(name="tip_rack")
 
 def PaintPlate(name: str, with_lid: bool = False) -> Plate: # Cos_96_EZWash
   return Plate(
@@ -73,12 +67,8 @@ plate = Cos_96_EZWash(name="plate")
 
 plate = PaintPlate(name="plate")
 
-#lh.deck.assign_child_resource(tips, slot=1)
-
 lh.deck.assign_child_resource(plate, slot=1)
 
-#tips = opentrons_96_tiprack_300ul(name="300")
-#dirty_tips = opentrons_96_tiprack_300ul(name="dirty")
 tips = opentrons_96_filtertiprack_20ul(name="300")
 dirty_tips = opentrons_96_filtertiprack_20ul(name="dirty")
 
@@ -152,7 +142,6 @@ def print_piece(piece):
         lh.aspirate([color2well[color]], vols=[len(batch) * DROP_VOLUME], liquid_classes=None)
         for item in batch:
           print("    dispense", item[0], DROP_VOLUME)
-          # 300->20: offset was 2
           lh.dispense(plate[item[0]], vols=[DROP_VOLUME], offsets_z=5, flow_rates=[30], liquid_classes=None)
 
       # discard tip
@@ -164,7 +153,7 @@ def print_piece(piece):
     mark_task(piece["id"], "done")
   except Exception as e:
     import traceback
-    traceback.format_exc()
+    print(traceback.format_exc())
     print("error", e)
     mark_task(piece["id"], "failed")
 
@@ -179,6 +168,11 @@ app = Flask(__name__, template_folder=".", static_folder="static")
 @app.route("/")
 def index():
   return render_template("dashboard.html")
+
+
+@app.route("/token")
+def get_token():
+  return jsonify(token=TOKEN)
 
 
 @app.route("/start", methods=["POST"])
@@ -203,10 +197,9 @@ def start():
 @app.route("/delete", methods=["POST"])
 def delete():
   task_id = request.get_json()["id"]
-  requests.delete(f"{BASE_URL}/pieces/{task_id}")
+  requests.delete(f"{BASE_URL}/pieces/{task_id}?token={TOKEN}")
   return jsonify({"success": True})
 
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=5006)#, debug=True)
-

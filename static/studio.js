@@ -207,7 +207,7 @@ function submit(event) {
 }
 
 function withdraw(id) {
-  fetch(`/pieces/${id}`, {
+  fetch(`/pieces/${id}?email=${getUser()}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

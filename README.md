@@ -14,6 +14,14 @@ Master dashboard:
 - It does not do authentication.
 - Artworks/pieces/submissions are passed around inefficiently.
 
+```bash
+# on a server, serves studio
+TOKEN="secret" python server.py
+
+# on computer with robot, serves dashboard and controls robot
+TOKEN="secret" python executor.py
+```
+
 ---
 
 _This project was developed for the Sculpting Evolution Group, to present at the Media Lab's Members Meeting, Fall 2022_
